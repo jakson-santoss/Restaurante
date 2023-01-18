@@ -46,12 +46,12 @@ def aqv_prod():
 def aqv_ped():
     with open("DataBase/pedidos.csv", "r", encoding='utf-8') as ref:
         aqv = csv.reader(ref, delimiter=',')
-    return [_ for _ in aqv]
+        return [_ for _ in aqv]
 
 def aqv_cmd():
     with open("DataBase/comandas.csv", "r", encoding='utf-8') as ref:
         aqv = csv.reader(ref, delimiter=',')
-    return [_ for _ in aqv]
+        return [_ for _ in aqv]
 
 
 class Clientes(object):
@@ -181,7 +181,7 @@ class Produto(object):
 
 
 class Pedidos(object):
-    aqvPedidos = Dados('pedido')
+    aqvPedidos = aqv_ped()
     #list_Pedidos= [x[0] for x in aqvPedidos]
 
     def __int__(self):
@@ -197,9 +197,9 @@ class Pedidos(object):
 
     def grava_pdd(self):
         """Inclui ou atualiza produtos na planilha."""
-        with open("Arquivos/od_serv.csv", "a+", encoding='utf-8') as arquivo:  # Inclui
-            arquivo.write(arquivo,
-                f'{self.nPed},{self.data},{self.fone},{self.pProd},{self.obs}\n')
+        with open("DataBase/pedidos.csv", "a+", encoding='utf-8') as arquivo:  # Inclui
+            arquivo.write(f'{self.nPed},{self.data},{self.fone},{self.pProd},{self.obs}\n')
+            #aqv = csv.reader(ref, delimiter=',')
 
     def slct_pdd(self, p_seq):
         if self.nPed in [self.aqvPedidos[x][0] for x in range(len(self.aqvPedidos))]:  # Atualiza

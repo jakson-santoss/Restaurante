@@ -3,7 +3,8 @@ from dados import *
 
 
 layout = [
-    [sg.StatusBar('COMANDA', font=ftTT, justification='c', text_color='blue'),
+[sg.Text(" COMANDA ", font=ftTT, expand_x=True,
+                     text_color='lime', justification='center', relief=sg.RELIEF_GROOVE),
      sg.ButtonMenu('⁝', ['', ['&Limpar::', '&Salvar::', 'E&xcluir::', '...', 'Sai&r::']], k='MENU')],
     [sg.T(hoje), sg.P(), sg.T('Nº', font=ftBd, text_color='black'),
      sg.I('000000', k='NCOMA', s=6, text_color='red', font=ftBd)],

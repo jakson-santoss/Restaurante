@@ -32,7 +32,7 @@ def Cliente():
         [sg.Frame('', [
             [sg.T('Telefone:', font=ftBt), sg.I(s=15, k='FONE::', font=ftBt),
              sg.B('Buscar'), sg.P(), menu],
-             [sg.T('Nome:', s=10), sg.I(k='NOME::', expand_x=True)],
+             [sg.T('Nome:', s=9), sg.I(k='NOME::', expand_x=True)],
             [sg.B('BUSCA', k='Adress_Btn', bind_return_key=True), sg.I(k='ENDER::', s=60)],
             [sg.P(), sg.T('Email:', s=6), sg.I(size=30, k='EMAIL::')]])],
         [sg.Table([], kbc, key='_Box', justification='l', enable_events=True, expand_x=True)],

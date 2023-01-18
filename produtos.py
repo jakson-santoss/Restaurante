@@ -61,13 +61,15 @@ def show_Price():
     lista = [[PDT[x].codigo, PDT[x].nome, f'R$ {PDT[x].preco:2.2f}', PDT[x].categoria] for x in sorted(codigos)]
 
     window = sg.Window('', [
-        [sg.Menu(menu_f, tearoff=True)],
-        [sg.StatusBar(' LISTA DE PRODUTOS  ', font=ftBt, justification='c', text_color='red')],
+        [sg.Menu(menu_f)],
+        [sg.T(' LISTA DE PRODUTOS  ', font=ftTT, expand_x=True,
+                 text_color='lime', justification='c', relief=sg.RELIEF_GROOVE)],
         [sg.Table(lista,cabecalho, key='-LISTA-', justification='l', expand_x=True)],
         [sg.HSep()],
         [sg.Combo(list_ktg + ['TODOS'], default_value='TODOS', key='-CATEG-', enable_events=True),
-         sg.OK(), sg.P(), sg.T(f'{len(lista)} PRODUTOS',s=14, k='-QTD-', justification='c', relief='ridge'),
-         sg.P(), sg.B('Sair')]], font=ftPd, disable_close=False)
+         sg.OK(),
+         sg.StatusBar(f'{len(lista)} PRODUTOS', k='-QTD-', justification='c',expand_x=True),
+         sg.B('Sair')]], font=ftPd, disable_close=False)
 
     while True:
         event, values = window.read()

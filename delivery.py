@@ -1,10 +1,10 @@
-# pedido[num]={cliente[fone]:{'data':'00/00/00','prod':[(qt, cod),(qt, cod),(qt, cod),...],'obs':'xxxxx'}
+# entrega[num]={cliente[fone]:{'data':'00/00/00','prod':[(qt, cod),(qt, cod),(qt, cod),...],'obs':'xxxxx'}
 from dados import *
 import functions
-import CadCliente
+import clientes
 import produtos
 
-fPgto = ['Dinheiro', 'Pix', 'Cartão', 'Cheque']
+fPgto = ['Dinheiro', 'Pix', 'Cartão', 'Outros']
 
 
 def __select_cli():
@@ -13,21 +13,22 @@ def __select_cli():
     if not fone or fone not in (x[0] for x in Clientes().read_task()):
         if sg.PopupOKCancel('Deseja cadastrar o cliente?') == 'OK':
             sg.PopupQuickMessage(f'Redirecionando para cadastro!')
-            CadCliente.Cliente()
+            clientes.Cliente()
         else:
             return
     else:
-        window['NOME'].update(CadCliente.cliente[fone].nome)
-        window['FONE'].update(CadCliente.cliente[fone].fone)
-        window['ENDER'].update(CadCliente.cliente[fone].ender)
+        window['NOME'].update(clientes.cliente[fone].nome)
+        window['FONE'].update(clientes.cliente[fone].fone)
+        window['ENDER'].update(clientes.cliente[fone].ender)
     return
 
 
 layout = [[
-    [sg.ButtonMenu('⁝', ['', ['Limpar::', 'Salvar::', 'Excluir::', '...', 'Sair::']], k='MENU::'),
-     sg.StatusBar(' DELIVERY ', justification='c', text_color='lime', font=ftTT)],
-    [sg.T(' PEDIDO Nº ', font=ftBd), sg.In('000000', k='NUM_ODR', font=ftBd, s=6, text_color='blue'),
-     sg.P(), sg.T(f'{hoje}', k='DATA', text_color='white')],
+    [sg.Text(" DELIVERY ", font=ftTT, expand_x=True,
+                     text_color='lime', justification='center', relief=sg.RELIEF_GROOVE),
+     sg.ButtonMenu('⁝', ['', ['Limpar::', 'Salvar::', 'Excluir::', '...', 'Sair::']], k='MENU::')],
+    [ sg.T(f'{hoje}', k='DATA', text_color='white'), sg.P(),
+     sg.T(' ENTREGA Nº ', font=ftBd), sg.In('000000', k='NUM_ODR', font=ftBd, s=6, text_color='blue'),],
     # Informações
     [sg.Frame('', [
         [sg.I('Nome', k='NOME',expand_x=True), sg.I('Telefone', k='FONE', s=12)],
@@ -53,7 +54,7 @@ layout = [[
 
 window = sg.Window('', layout, font=ftPd, finalize=True)
 
-#__select_cli()
+__select_cli()
 window['OBS'].set_focus()
 
 while True:
