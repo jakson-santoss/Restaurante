@@ -39,13 +39,16 @@ class Dados:
 
 
 def aqv_prod():
-    with open("DataBase/produtos.json", "r", encoding='utf-8') as aqv_ctg:
+    '''with open("DataBase/produtos.json", "r", encoding='utf-8') as aqv_ctg:
         arquivo = load(aqv_ctg)  # Abre o arquivo para leitura
-    return arquivo
+    return arquivo'''
+    with open('DataBase/produtos.csv', newline='', encoding='utf-8') as ref:
+        aqv = csv.reader(ref, delimiter=',')
+        return [[x[0], x[1], float(x[2]), x[3]]for x in aqv]    # todos são string
 
 def aqv_ped():
     with open("DataBase/pedidos.csv", "r", encoding='utf-8') as ref:
-        aqv = csv.reader(ref, delimiter=',')
+        aqv = csv.reader(ref, delimiter=';')
         return [_ for _ in aqv]
 
 def aqv_cmd():
@@ -151,10 +154,10 @@ class Produto(object):
         return[self.codigo, self.categoria, self.nome, self.preco]
 
     def excluir(self):
-        if self.codigo in aqvProd:
+        if self.codigo in [pd[0] for pd in self.aqvProd]:
             try:
                 self.aqvProd.pop(self.codigo)
-                with open("DataBase/produtos.json", "w", encoding='utf-8') as aqv_ctg:
+                with open("DataBase/produtos.csv", "w", encoding='utf-8') as aqv_ctg:
                     dump(self.aqvProd, aqv_ctg)     # Salva o dicionário no arquivo
 
                 return "Produto excluído com sucesso!", True
@@ -163,13 +166,24 @@ class Produto(object):
 
     def salvar(self):
         try:
-            self.aqvProd[self.codigo]=[ self.nome, self.preco, self.categoria]
-            with open("DataBase/produtos.json", "w", encoding='utf-8') as aqv_ctg:
-                dump(self.aqvProd, aqv_ctg)  # Salva o dicionário no arquivo
+            with open("DataBase/produtos.csv", "a",newline='', encoding='utf-8') as ref:
+                gravaLinha = csv.writer(ref)
+                gravaLinha.writerow([self.codigo, self.nome, self.preco, self.categoria])
+            return f'{self.nome} Salvo com sucesso!'
+        except:
+            return 'Ocorreu algum erro, o produto não foi salvo!'
+    def atualizar(self, arquivo):
+        self.aqvProd = arquivo
+        try:
+            with open("DataBase/produtos.csv", "w",newline='', encoding='utf-8') as ref:
+                atuLinha = csv.writer(ref)
+                atuLinha.writerows([xz,self.aqvProd[xz][0],self.aqvProd[xz][1],
+                                         self.aqvProd[xz][2]]for xz in self.aqvProd)
             return 'Produto Salvo com sucesso!'
         except:
             return 'Ocorreu algum erro, o produto não foi salvo!'
-    def select(self,cod):
+
+    '''def select(self,cod):
         if cod in aqvProd.keys():
             self.codigo = cod
             self.nome = aqvProd[cod][0]
@@ -177,7 +191,7 @@ class Produto(object):
             self.categoria = aqvProd[cod][2]
             return self.completo()
         else:
-            return 'Este produto não está cadastrado!'
+            return 'Este produto não está cadastrado!'''
 
 
 class Pedidos(object):
@@ -239,10 +253,53 @@ class Invoices(object):             # Notas
 
 if __name__ == '__main__':
     #list_Comandas()
-    aqvProd = aqv_prod()
-    for a in aqvProd:
-        print(a,'\t',aqvProd[a])
-    print(len(aqvProd))
+    x = aqv_prod()
+    for a in x:
+        print(a)
+    print(type(x))
 
     pass
+'''
 
+class Produto(object):
+    aqvProd = aqv_prod()
+
+    def __init__(self, codigo,nome, preco,categoria):
+        self.codigo = codigo
+        self.nome = nome
+        self.preco = preco
+        self.categoria = categoria
+
+    def completo(self):
+        return[self.codigo, self.categoria, self.nome, self.preco]
+
+    def excluir(self):
+        if self.codigo in aqvProd:
+            try:
+                self.aqvProd.pop(self.codigo)
+                with open("DataBase/produtos.json", "w", encoding='utf-8') as aqv_ctg:
+                    dump(self.aqvProd, aqv_ctg)     # Salva o dicionário no arquivo
+
+                return "Produto excluído com sucesso!", True
+            except:
+                return "Ocorreu um erro na exclusão do produto", False
+
+    def salvar(self):
+        try:
+            self.aqvProd[self.codigo]=[ self.nome, self.preco, self.categoria]
+            with open("DataBase/produtos.json", "w", encoding='utf-8') as aqv_ctg:
+                dump(self.aqvProd, aqv_ctg)  # Salva o dicionário no arquivo
+            return 'Produto Salvo com sucesso!'
+        except:
+            return 'Ocorreu algum erro, o produto não foi salvo!'
+    def select(self,cod):
+        if cod in aqvProd.keys():
+            self.codigo = cod
+            self.nome = aqvProd[cod][0]
+            self.preco = aqvProd[cod][1]
+            self.categoria = aqvProd[cod][2]
+            return self.completo()
+        else:
+            return 'Este produto não está cadastrado!'
+
+'''

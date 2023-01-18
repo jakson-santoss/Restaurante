@@ -3,7 +3,8 @@ import requests
 from datetime import datetime as dt
 from random import randint
 
-'''☰ ≡ ⁝ ▲ ▼ ▶△▽▷'''
+'''☰ ≡ ⁝ ▲ ▼ ▶△▽▷
+relief must be flat, groove, raised, ridge, solid, or sunken'''
 
 btn_menu = sg.ButtonMenu('⁝', ['', ['&Limpar::', '&Salvar::', 'E&xcluir::', '...', 'Sai&r::']], k='MENU')
 

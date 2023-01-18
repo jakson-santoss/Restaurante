@@ -1,23 +1,18 @@
 from dados import *
 
-ftTT = ("Arial", "20", "bold", "italic")
-ftPd = ("Arial", "12")
-ftBd = ("Arial", "14", "bold")
-ftBt = ("Calibri", "16", "bold")
-btn_menu = sg.ButtonMenu('⁝', ['', ['Limpar::', 'Salvar::', 'Excluir::', '...', 'Sair::']], k='Menu',font=('_',10))
 list_ktg, codigos = [], []
 PDT = {}
 aqvProd = aqv_prod()
 
-for prod in aqvProd:
-    PDT[prod] = Produto(prod,aqvProd[prod][0],aqvProd[prod][1],aqvProd[prod][2])
-    codigos.append(prod)
-    if PDT[prod].categoria not in list_ktg: list_ktg.append(PDT[prod].categoria)
+for pd in aqvProd:
+    PDT[pd[0]] = Produto(pd[0],pd[1],pd[2],pd[3])
+    codigos.append(pd[0])
+    if PDT[pd[0]].categoria not in list_ktg: list_ktg.append(PDT[pd[0]].categoria)
 
 
 def cadastro(comando: str, cod=None):
     window = sg.Window('', [
-        [sg.StatusBar(' CADASTRO DE PRODUTOS  ', font=['_', 14, 'bold'], justification='c', text_color='red')],
+        [sg.StatusBar(' CADASTRO DE PRODUTOS  ', font=ftBd, justification='c', text_color='red')],
         [sg.T('Categoria', size=12), sg.T('Descrição', justification='c', size=30), sg.T('Preço')],
         [sg.Combo(list_ktg, k='_Kt', size=10),
          sg.I(size=30, k='_Nm'), sg.I(size=8, k='_Pc')],
@@ -35,11 +30,16 @@ def cadastro(comando: str, cod=None):
         elif buttons == 'Ok':
             if comando == 'Novo':
                 cod = str(randint(99, 999))
-            PDT[cod] = Produto(cod, values['_Nm'].strip().title(),
+                PDT[cod] = Produto(cod, values['_Nm'].strip().title(),
                                float(conversor(values['_Pc'])), values['_Kt'].upper())
-            PDT[cod].salvar()
-        else:
-            sg.PopupQuickMessage('encerrando sem salvar')
+                PDT[cod].salvar()
+            elif comando == 'Atualizar':
+                PDT[cod] = Produto(cod, values['_Nm'].strip().title(),
+                                   float(conversor(values['_Pc'])), values['_Kt'].upper())
+                PDT[cod].atualizar([[PDT[x].codigo, PDT[x].nome, PDT[x].preco, PDT[x].categoria] for x in sorted(codigos)]
+)
+            else:
+                sg.PopupQuickMessage('encerrando sem salvar')
         window.close()
 
 
@@ -102,6 +102,3 @@ def show_Price():
 if __name__ == '__main__':
     show_Price()
 
-    #a= 15.6
-    #print(repr(a).zfill(8))
-    pass
