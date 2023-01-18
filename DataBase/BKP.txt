@@ -1,0 +1,94 @@
+'''# backup das categorias
+categorias = {
+    'prato do dia': {'Virado à Paulista': 25, 'Dobradinha': 30, 'Bife à Role': 25, 'Feijoada Pq': 60, 'Feijoada Md': 70,
+                     'Feijoada Gd': 80, 'Macarrão c/ Frango': 25, 'Filéde Peixe': 25},
+    'refeição': {'Prato Executivo': 18, 'Comercial': 20, 'Frango Parmeggiana': 30, 'Contra Parmeggiana': 35},
+    'lanches': {'X_Burger': 10, 'X_Salada': 15, 'X_Bacon': 15, 'X_Egg': 12, 'X_Calabresa': 12, 'X_Chicken': 12,
+                'Bauru': 6, 'Misto Quente': 7, 'Fritas': 7},
+    'porções': {'Batata Frita': 20, 'Mandioca Frita': 20, 'Polenta': 20, 'Calabresa': 25, 'Churrasco': 30},
+    'bebidas': {'Refrigerante Ks': 4, 'Refrigerante lata': 5, 'Refrigerante 600ml': 7, 'Suco': 7},
+    'cervejas': {'Atarctica 600ml': 10, 'Amstel 600ml': 12, 'Skol 600ml': 10, 'Original 600ml': 12, 'Heineken': 14,
+                 'Skol Lata': 5, 'Heineken Lata': 7}}
+with open("categorias.json", "w", encoding='utf-8') as aqv_ctg:
+    dump(categorias, aqv_ctg)     # Salva o dicionário no arquivo'''
+
+Produtos_B = {'176': ['Virado À Paulista', 25.0, 'PRATO DO DIA'], '159': ['Dobradinha', 30.0, 'PRATO DO DIA'],
+              '313': ['Bife À Role', 25.0, 'PRATO DO DIA'], '246': ['Feijoada Pq', 60.0, 'PRATO DO DIA'],
+              '588': ['Feijoada Md', 70.0, 'PRATO DO DIA'], '793': ['Feijoada Gd', 80.0, 'PRATO DO DIA'],
+              '642': ['Macarrão C/ Frango', 25.0, 'PRATO DO DIA'], '781': ['Filéde Peixe', 25.0, 'PRATO DO DIA'],
+              '502': ['Prato Executivo', 18.0, 'REFEIÇÃO'], '815': ['Comercial', 20.0, 'REFEIÇÃO'],
+              '702': ['Frango Parmeggiana', 30.0, 'REFEIÇÃO'], '934': ['Contra Parmeggiana', 35.0, 'REFEIÇÃO'],
+              '195': ['X_Burger', 10.0, 'LANCHES'], '594': ['X_Salada', 15.0, 'LANCHES'],
+              '561': ['X_Bacon', 15.0, 'LANCHES'], '652': ['X_Egg', 12.0, 'LANCHES'],
+              '936': ['X_Calabresa', 12.0, 'LANCHES'], '376': ['X_Chicken', 12.0, 'LANCHES'],
+              '102': ['Bauru', 6.0, 'LANCHES'], '813': ['Misto Quente', 7.0, 'LANCHES'], '569': ['Fritas', 7.0, 'LANCHES'],
+              '387': ['Batata Frita', 20.0, 'PORÇÕES'], '775': ['Mandioca Frita', 20.0, 'PORÇÕES'],
+              '333': ['Polenta', 20.0, 'PORÇÕES'], '586': ['Calabresa', 25.0, 'PORÇÕES'],
+              '705': ['Churrasco', 30.0, 'PORÇÕES'], '605': ['Refrigerante Ks', 4.0, 'BEBIDAS'],
+              '132': ['Refrigerante Lata', 5.0, 'BEBIDAS'], '812': ['Refrigerante 600Ml', 7.0, 'BEBIDAS'],
+              '343': ['Suco', 7.0, 'BEBIDAS'], '239': ['Atarctica 600Ml', 10.0, 'CERVEJAS'],
+              '488': ['Amstel 600Ml', 12.0, 'CERVEJAS'], '757': ['Skol 600Ml', 10.0, 'CERVEJAS'],
+              '496': ['Original 600Ml', 12.0, 'CERVEJAS'], '145': ['Heineken', 14.0, 'CERVEJAS'],
+              '792': ['Skol Lata', 5.0, 'CERVEJAS'], '522': ['Heineken Lata', 7.0, 'CERVEJAS']}
+
+
+def console_teste():
+    """Função criada para visualização das informações do arquivo no console."""
+    _produtos = {}
+    print(f'\n{categorias}\n')
+    for cat in categorias:
+        #print(f'\t{cat.upper()}\n')
+        for prod, val in categorias[cat].items():
+            codigo = str(randint(99, 999))
+            print(codigo, prod.strip().title(), float(val), cat.upper())
+            _produtos[codigo] = [prod.strip().title(), float(val), cat.upper()]
+            print(_produtos[codigo])
+
+            #codigos.append(prod)
+            #prod = Produto(prod, categorias[prod][0], categorias[prod][1], categorias[prod][2])
+            #print(f'{prod.codigo}\t{prod.nome:20s} - R$ {prod.preco:2.2f}\t{prod.categoria}')
+            #_produtos[prod.codigo] = [prod.nome, prod.preco, prod.categoria]
+    print(f'\n{_produtos},\n {len(_produtos)}')
+    #print(sorted(codigos))
+
+    '''
+    with open("produtos.json", "w", encoding='utf-8') as aqv_ctg:
+        dump(_produtos, aqv_ctg)     # Salva o dicionário no arquivo
+    '''
+
+
+
+#------------------------------------------------------------------
+
+import PySimpleGUI as sg
+"""
+    Demo - Base64 Buttons with Images
+
+    This is perhaps the easiest, quickest, and safest way to use buttons with images in PySimpleGUI.
+    By putting the button into your code, then you only have to distribute a single file.
+    
+    Copyright 2022 PySimpleGUI
+"""
+
+# First the button images
+
+play = b'iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABmJLR0QA/wD/AP+gvaeTAAAByElEQVRoge3ZMWsUQRjG8Z8RFSKCgoJp0qSJjVpoZ2clkk8g5CtYpU+TD5DSUkvbVCFNYiM2dhZqY6GFQooEISGai8Xu4HgmcnM3c+su+4fj2L2dmedhb+Z95x16enp6hljBxaZF5OAE7/GoaSGTchJ9tnCrWTnjE0zs19+HWMPlJkWNQzAyh2c4rq+/YBnnmpOWRjASuIfX0f0d3GlAVzLDRmBG9Ta+1r8d4wVuTFdaGqcZCVzFOn7Uz+ziKc5PR1oa/zISWMRm9OxbPCisK5lRjASW8Clqs4H5MrLSSTECs1jFQd3ue319KbewVFKNBBbwMmr/EY8z6kpmXCOBh3gX9dNYdjCpEbigWs326r6OVKvdlQn7TSKHkcCcKt4MNJAd5DQSuI83Ud87uJ15jL8oYYTf2cE3f2YH1wuMhXJGAtdU8+WnwtlBaSOBu3gVjZc9O5iWEapJ/wSf6zEHeI6bZzWYmY6u/4v+rzUirZ/snVh+hwPitpYFxNanKJ1IGk9L4xcz6Eom18bqg5ZtrDqx1Y2LDwPVG2lV8aH15aDWF+jOKpkWi8o5GKWIXTwq56BzxwqdOejpxNFbJw5DO3M83dPT02J+AbN50HbYDxzCAAAAAElFTkSuQmCC'
+stop = b'iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABmJLR0QA/wD/AP+gvaeTAAAAaklEQVRoge3ZQQqAMAxFwSre/8p6AZFUiXzKzLqLPNJVOwYAvLcVzpztU9Q8zrr/NUW3Y+JsZXsdSjdimY0ISSMkjZA0QtIISSMkjZA0QtIISSMkjZA0QtIISSMkzcxrfMo/ya1lNgIAX1zq+ANHUjXZuAAAAABJRU5ErkJggg=='
+eject = b'iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABmJLR0QA/wD/AP+gvaeTAAAByklEQVRoge3YO2gUURSA4S+JRnyACIGADyxERAsb0UKrWIidWIidlSA2YpFWSauNVtrYiIU2YpFCLGwEEWwsBAsLEbFQFARFfKBZizkyK5pkZvZmZ7PeH05z595z/sPszpxdMplMJpMZbDZFLGsm8CxiomWXxqzBQ3QiHmNdq0YNGMc9RQOvIjqxNt6iVy1GcF0h/h47sR1vY+0mRluzq8ElhfBn7O9a34tPce1KC161OK8Q/Y7D/7h+EF9jz7k+etXilELwJ44vsO8ofsTeM33wqsURpdzZCvtPK5s+toRetZjCF4XYTI1zM3HmGw4lt6rJbnxQCF1tcP5ynP2IPQm9arENb0LkDsYa5BjFrcjxDjuS2VVkI16EwH2s6iHXStxVvjy39GxXkfV4Iu3Y0T3OPMWGBDkXZDUeRMHnmEyY+/eA2cEjrE2Y+w/GcDsKvcbWJaixGS+jxixWpC4wgmvK+WlX6gJddM9lN6J2Mi4q56cDKRPPwz7lXHYhVdJp5W+KtmK61yZOYG4AGpnDyV6byWT+ZxZ7Rnf6YlGdeX2XxZ8AVag6AiR9uzZg0U/G0NyR3MigUfU7MmhPr78YmjuSyWQymUxmmPgFokSdfYSQKDwAAAAASUVORK5CYII='
+
+sg.theme('Light Green 3')
+
+# Define the window's layout
+layout = [[sg.Button(image_data=play, key='-PLAY-',  button_color=sg.theme_background_color(), border_width=0),
+           sg.Button(image_data=stop, key='-STOP-',  button_color=sg.theme_background_color(), border_width=0),
+           sg.Button(image_data=eject, key='-EXIT-',  button_color=sg.theme_background_color(), border_width=0)]  ]
+
+# Create the window
+window = sg.Window('Simple Base64 Buttons', layout)
+
+while True:                             # Event Loop
+    event, values = window.read()       # type: str, dict
+    print(event, values)
+    if event in (sg.WIN_CLOSED, '-EXIT-'):         # If the user exits
+        break
+window.close()          # Exiting so clean up
