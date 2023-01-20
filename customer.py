@@ -1,3 +1,4 @@
+# Cliente['fone']={fone, nome, ender,email}
 from dados import *
 
 list_fone, cliente = [], {}
@@ -11,7 +12,7 @@ for clt in Clientes().read_task():
     list_fone.append(clt[0])
 
 
-def Cliente():
+def Customers():
     menu = sg.ButtonMenu('⁝', ['', ['Limpar::', 'Salvar::', '...', ['Excluir::'],  'Sair::']], k='MENU::')
     kbc = ['TELEFONE', 'NOME', 'ENDEREÇO',  'EMAIL']
 
@@ -35,7 +36,7 @@ def Cliente():
              [sg.T('Nome:', s=9), sg.I(k='NOME::', expand_x=True)],
             [sg.B('BUSCA', k='Adress_Btn', bind_return_key=True), sg.I(k='ENDER::', s=60)],
             [sg.P(), sg.T('Email:', s=6), sg.I(size=30, k='EMAIL::')]])],
-        [sg.Table([], kbc, key='_Box', justification='l', enable_events=True, expand_x=True)],
+        [sg.Table([], kbc, key='_Box', justification='l', enable_events=True, expand_x=True,)],
         [sg.B('Salvar', bind_return_key=True), sg.P(), sg.B('Sair', bind_return_key=True)]],
                        font=ftPd, finalize=True)
     __atu()
@@ -92,4 +93,4 @@ def Cliente():
 
 
 if __name__ == '__main__':
-    Cliente()
+    Customers()

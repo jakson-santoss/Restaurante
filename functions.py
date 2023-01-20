@@ -3,17 +3,29 @@ import requests
 from datetime import datetime as dt
 from random import randint
 
-'''☰ ≡ ⁝ ▲ ▼ ▶△▽▷
-relief must be flat, groove, raised, ridge, solid, or sunken'''
+''' ▲ ▼ ▶△▽▷
+relief must be flat, groove, raised, ridge, solid, or sunken
+sg.popup(format_input_information(values))'''
 
-btn_menu = sg.ButtonMenu('⁝', ['', ['&Limpar::', '&Salvar::', 'E&xcluir::', '...', 'Sai&r::']], k='MENU')
+'''btn_menu = sg.ButtonMenu('☰', ['⁝', ['&Limpar::', '&Salvar::', 'E&xcluir::', '...', 'Sai&r::']], k='MENU',
+                         border_width=0, button_color=('white', '#64778d'))'''
 
+SBLMENU = '☰'
+SBLMENUL = '≡'
+SBLMENUP = '⁝'
 hoje = f'{dt.now():%d/%m/%Y %H:%M}'
 ftTT = ("_", "18", "bold", "italic")
 ftPd = ("_", "10")
 ftBt = ("_", "12", "bold")
 ftBd = ("_", "14", "bold")
 
+
+def btn_menu(menu_list: list):
+    """Param menu_list Lista de comandos do botão de menu.
+        Comando Sair já incluso com  o aliá 'r' e chave 'MENU::'
+    return botão com fundo transparente e ☰ visível."""
+    return sg.ButtonMenu('☰', ['⁝', [menu_list,'Sai&r::']], k='MENU::', button_color=sg.theme_background_color(),
+                         border_width=0, font=('_', 12))
 
 
 def conversor(numero):
@@ -115,6 +127,24 @@ def fone_test(fone_n):
         return
 
 
+def impressora_teste():
+    try:
+        import win32api
+        import win32print
+        '''Escolher qual impressora será ultilizada.'''
+        list_printer = win32print.EnumPrinters(2)
+        for imp in list_printer:
+            print('Impressora listada: ', imp)
+
+        print('\nConfigurações do Windows')
+        for imp in list_printer:
+            if 'PDF' in imp[2]:
+                print(f'{imp}\n', f'"{imp[2]}" Para salvar em PDF')
+        print('impressora instalada:', list_printer[-1][2])
+    except:
+        print('Sistema operacional não Windows!\n Ou as bibliotecas não estão instaladas! ;) ;)')
+
+
 def funcao_teste():
     """Função criada para teste."""
     lista = []
@@ -136,4 +166,7 @@ def funcao_teste():
 
 if __name__ == '__main__':
     # teste_teste()
-    fone_test()
+    # fone_test()
+    impressora_teste()
+
+    pass
