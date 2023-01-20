@@ -10,7 +10,7 @@ for pd in aqvProd:
     if PDT[pd[0]].categoria not in list_ktg: list_ktg.append(PDT[pd[0]].categoria)
 
 
-def cadastro(comando: str, cod=None):
+def __cadastro(comando: str, cod=None):
     window = sg.Window('', [
         [sg.StatusBar(' CADASTRO DE PRODUTOS  ', font=ftBd, justification='c', text_color='red')],
         [sg.T('Categoria', size=12), sg.T('Descrição', justification='c', size=30), sg.T('Preço')],
@@ -43,7 +43,7 @@ def cadastro(comando: str, cod=None):
         window.close()
 
 
-def show_Price():
+def Show_Price():
     """— > mostra a lista de produtos e preços."""
     def up_dt():
         if values['-CATEG-'] != 'TODOS':
@@ -82,11 +82,11 @@ def show_Price():
             print(lista[values['-LISTA-'][0]])#[0])
 
         elif event == 'Novo':
-            cadastro(comando=event)
+            __cadastro(comando=event)
 
         elif event == 'Atualizar':
             if values['-LISTA-']:
-                cadastro(event, lista[values['-LISTA-'][0]][0])
+                __cadastro(event, lista[values['-LISTA-'][0]][0])
             else:
                 sg.PopupQuickMessage('Escolha um produto para atualizar!', background_color='red', font=ftBt)
 
@@ -100,5 +100,5 @@ def show_Price():
 
 
 if __name__ == '__main__':
-    show_Price()
+    Show_Price()
 

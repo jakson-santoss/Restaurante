@@ -1,8 +1,10 @@
+# instalar pywin32 para impressão em windows
 from json import load, dump
 import sqlite3
 import csv
 from functions import *
-list_Prod, list_Cmd, list_Ped = [], [],[]
+
+list_Prod, list_Cmd, list_Ped = [], [], []
 
 class Dados:
     """ Cria e ativa a base de dados abrindo todos os arquivos.
@@ -259,6 +261,16 @@ if __name__ == '__main__':
     print(type(x))
 
     pass
+    with open("DataBase/produtos.json", "r", encoding='utf-8') as aqv_ctg:
+        arquivo = load(aqv_ctg)  # Abre o arquivo para leitura
+        prod = []
+        for pd in arquivo:
+            prod.append ([pd ,arquivo[pd][0],arquivo[pd][1],arquivo[pd][2]])
+
+    with open('DataBase/produtos.csv', 'w',  newline='', encoding='utf-8') as ref:
+        atuLinha = csv.writer(ref)
+        atuLinha.writerows([xz[0], xz[1], xz[2], xz[3]] for xz in prod)
+
 '''
 
 class Produto(object):

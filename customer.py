@@ -11,7 +11,7 @@ for clt in Clientes().read_task():
     list_fone.append(clt[0])
 
 
-def Cliente():
+def Customers():
     menu = sg.ButtonMenu('⁝', ['', ['Limpar::', 'Salvar::', '...', ['Excluir::'],  'Sair::']], k='MENU::')
     kbc = ['TELEFONE', 'NOME', 'ENDEREÇO',  'EMAIL']
 
@@ -92,4 +92,4 @@ def Cliente():
 
 
 if __name__ == '__main__':
-    Cliente()
+    Customers()
